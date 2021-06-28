@@ -22,16 +22,18 @@ class MainActivity : AppCompatActivity() {
         binding.sv.viewTreeObserver.addOnScrollChangedListener {
             if (binding.sv.scrollY > 150f.dpToPx(this).toInt()) {
                 if (anim.not()) {
-                    binding.mtl.transitionToEnd()
+                    binding.mtlIv.transitionToEnd()
+                    binding.mtlBtn.transitionToEnd()
                 }
             } else {
                 if (anim.not()) {
-                    binding.mtl.transitionToStart()
+                    binding.mtlIv.transitionToStart()
+                    binding.mtlBtn.transitionToStart()
                 }
             }
         }
 
-        binding.mtl.setTransitionListener(object : MotionLayout.TransitionListener {
+        binding.mtlIv.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
                 anim = true
             }
