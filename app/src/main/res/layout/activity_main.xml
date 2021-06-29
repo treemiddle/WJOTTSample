@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cdl"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -135,7 +136,7 @@
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="false"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/mimoticon" />
+                    android:src="@drawable/endgame" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,7 +152,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fitsSystemWindows="false">
+                    android:fitsSystemWindows="true">
 
                     <View
                         android:id="@+id/v_toolbar_background"
@@ -161,9 +162,10 @@
                         android:fitsSystemWindows="false" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ctl_toolbar_container"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:fitsSystemWindows="false">
+                        android:fitsSystemWindows="true">
 
                         <TextView
                             android:id="@+id/tv_title"
