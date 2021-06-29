@@ -1,9 +1,13 @@
 package com.jay.jayottsample
 
+import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.View
+import android.view.WindowManager
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.jay.jayottsample.databinding.ActivityMainBinding
 
@@ -18,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        statusBarTransparent()
 
         binding.sv.viewTreeObserver.addOnScrollChangedListener {
             if (binding.sv.scrollY > 150f.dpToPx(this).toInt()) {
@@ -47,7 +52,17 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun Float.dpToPx(context: Context): Float {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, context.resources.displayMetrics)
+}
+
+fun Float.dpToPx(context: Context): Float {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, context.resources.displayMetrics)
+}
+
+fun Activity.statusBarTransparent() {
+    window.apply {
+        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        statusBarColor = Color.TRANSPARENT
     }
 }
