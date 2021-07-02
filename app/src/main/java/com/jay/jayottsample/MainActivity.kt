@@ -37,10 +37,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initScrollViewListener() {
         binding.nestedSv.smoothScrollTo(0, 0)
-        binding.nestedSv.viewTreeObserver.addOnScrollChangedListener {
-            val scrolledValue = binding.nestedSv.scaleY
 
-            if (scrolledValue > 150f.dpToPx(this).toInt()) {
+        binding.nestedSv.viewTreeObserver.addOnScrollChangedListener {
+            if (binding.nestedSv.scrollY > 150f.dpToPx(this).toInt()) {
                 if (anim.not()) {
                     binding.motionLayoutChild.transitionToEnd()
                     binding.motionLayoutParent.transitionToEnd()
@@ -51,8 +50,8 @@ class MainActivity : AppCompatActivity() {
                     binding.motionLayoutParent.transitionToStart()
                 }
             }
-
         }
+
     }
 
     private fun initMotionLayoutListener() {
