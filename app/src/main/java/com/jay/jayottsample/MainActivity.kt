@@ -31,22 +31,31 @@ class MainActivity : AppCompatActivity() {
         statusBarTransparent()
         initAppbar()
         initInsetMargin()
+        initScrollViewListener()
+        initMotionLayoutListener()
+    }
 
-        binding.sv.viewTreeObserver.addOnScrollChangedListener {
-            if (binding.sv.scrollY > 150f.dpToPx(this).toInt()) {
+    private fun initScrollViewListener() {
+        binding.nestedSv.smoothScrollTo(0, 0)
+
+        binding.nestedSv.viewTreeObserver.addOnScrollChangedListener {
+            if (binding.nestedSv.scrollY > 150f.dpToPx(this).toInt()) {
                 if (anim.not()) {
-                    binding.mtlIv.transitionToEnd()
-                    binding.mtlBtn.transitionToEnd()
+                    binding.motionLayoutChild.transitionToEnd()
+                    binding.motionLayoutParent.transitionToEnd()
                 }
             } else {
                 if (anim.not()) {
-                    binding.mtlIv.transitionToStart()
-                    binding.mtlBtn.transitionToStart()
+                    binding.motionLayoutChild.transitionToStart()
+                    binding.motionLayoutParent.transitionToStart()
                 }
             }
         }
 
-        binding.mtlIv.setTransitionListener(object : MotionLayout.TransitionListener {
+    }
+
+    private fun initMotionLayoutListener() {
+        binding.motionLayoutChild.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
                 anim = true
             }
@@ -61,19 +70,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAppbar() {
-        binding.abl.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val topPadding = 120f.dpToPx(this)
+        binding.appbarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val topPadding = 300f.dpToPx(this)
+            val realAlphaScrollHeight = appBarLayout.measuredHeight - appBarLayout.totalScrollRange
             val abstractOffset = abs(verticalOffset)
+
+            val realAlphaVerticalOffset = if (abstractOffset - topPadding < 0) {
+                0f
+            } else {
+                abstractOffset - topPadding
+            }
 
             if (abstractOffset < topPadding) {
                 binding.vToolbarBackground.alpha = 0f
                 return@OnOffsetChangedListener
             }
 
-            val verticalOffsetByToPadding = abstractOffset - topPadding
-            val percentage = abs(verticalOffsetByToPadding) / appBarLayout.totalScrollRange
-
-            binding.vToolbarBackground.alpha = 1 - if (1 - percentage * 2 < 0) 0f else 1 - percentage * 2
+            val percentage = realAlphaVerticalOffset / realAlphaScrollHeight
+            binding.vToolbarBackground.alpha = 1 - if (1 - percentage * 2 < 0) {
+                0f
+            } else {
+                1 - percentage * 2
+            }
         })
 
         initActionbar()
@@ -81,14 +99,14 @@ class MainActivity : AppCompatActivity() {
 
     // I don't know why it's need this function
     private fun initInsetMargin() = with(binding) {
-        ViewCompat.setOnApplyWindowInsetsListener(cdl) { v: View, insets: WindowInsetsCompat ->
+        ViewCompat.setOnApplyWindowInsetsListener(coordinatorLayout) { v: View, insets: WindowInsetsCompat ->
             val params = v.layoutParams as ViewGroup.MarginLayoutParams
             params.bottomMargin = insets.systemWindowInsetBottom
 
             ctlToolbarContainer.layoutParams = (ctlToolbarContainer.layoutParams as ViewGroup.MarginLayoutParams).apply {
                 setMargins(0, insets.systemWindowInsetTop, 0, 0)
             }
-            cptl.layoutParams = (cptl.layoutParams as ViewGroup.MarginLayoutParams).apply {
+            collapsingToobarLayout.layoutParams = (collapsingToobarLayout.layoutParams as ViewGroup.MarginLayoutParams).apply {
                 setMargins(0, 0, 0, 0)
             }
 
@@ -97,9 +115,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initActionbar() = with(binding) {
-        tb.navigationIcon = null
-        tb.setContentInsetsAbsolute(0, 0)
-        setSupportActionBar(binding.tb)
+        toolbar.navigationIcon = null
+        toolbar.setContentInsetsAbsolute(0, 0)
+        setSupportActionBar(toolbar)
         supportActionBar?.let {
             it.setHomeButtonEnabled(false)
             it.setDisplayHomeAsUpEnabled(false)
