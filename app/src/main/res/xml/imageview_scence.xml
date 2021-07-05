@@ -23,7 +23,7 @@
                 motion:framePosition="100"
                 motion:motionTarget="@id/iv_1"
                 motion:transitionEasing="decelerate"
-                android:alpha="1"/>
+                android:alpha="0.5"/>
         </KeyFrameSet>
 
         <KeyFrameSet>
@@ -41,7 +41,7 @@
                 motion:framePosition="100"
                 motion:motionTarget="@id/iv"
                 motion:transitionEasing="decelerate"
-                android:alpha="1"/>
+                android:alpha="0.5"/>
         </KeyFrameSet>
 
         <KeyFrameSet>
@@ -59,7 +59,7 @@
                 motion:framePosition="100"
                 motion:motionTarget="@id/iv_2"
                 motion:transitionEasing="decelerate"
-                android:alpha="1"/>
+                android:alpha="0.5"/>
         </KeyFrameSet>
 
         <KeyFrameSet>
@@ -77,7 +77,7 @@
                 motion:framePosition="100"
                 motion:motionTarget="@id/iv_3"
                 motion:transitionEasing="decelerate"
-                android:alpha="1"/>
+                android:alpha="0.5"/>
         </KeyFrameSet>
 
     </Transition>

@@ -43,11 +43,13 @@ class MainActivity : AppCompatActivity() {
                 if (anim.not()) {
                     binding.motionLayoutChild.transitionToEnd()
                     binding.motionLayoutParent.transitionToEnd()
+                    binding.motionLayoutBackground.transitionToEnd()
                 }
             } else {
                 if (anim.not()) {
                     binding.motionLayoutChild.transitionToStart()
                     binding.motionLayoutParent.transitionToStart()
+                    binding.motionLayoutBackground.transitionToStart()
                 }
             }
         }
