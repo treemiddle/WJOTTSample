@@ -65,55 +65,115 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.motion.widget.MotionLayout
-                    android:id="@+id/motion_layout_child"
-                    android:layout_width="480dp"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center_horizontal"
-                    app:layoutDescription="@xml/imageview_scence">
+                    android:id="@+id/motion_layout_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutDescription="@xml/background_scence">
 
                     <ImageView
-                        android:id="@+id/iv"
-                        android:layout_width="300dp"
-                        android:layout_height="250dp"
+                        android:id="@+id/iv_ironman"
+                        android:layout_width="0dp"
+                        android:layout_height="500dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_launcher_background"
+                        android:src="@drawable/ironman"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent" />
+
+                    <View
+                        android:id="@+id/v_empty"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_ironman"
+                        app:layout_constraintEnd_toEndOf="@id/iv_ironman"
+                        app:layout_constraintStart_toStartOf="@id/iv_ironman"
+                        app:layout_constraintTop_toTopOf="@id/iv_ironman" />
+
+                    <androidx.constraintlayout.motion.widget.MotionLayout
+                        android:id="@+id/motion_layout_child"
+                        android:layout_width="480dp"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="200dp"
+                        app:layout_constraintTop_toTopOf="@id/motion_layout_background"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_gravity="center_horizontal"
+                        app:layoutDescription="@xml/imageview_scence">
+
+                        <ImageView
+                            android:id="@+id/iv"
+                            android:layout_width="300dp"
+                            android:layout_height="250dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/iron1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_1"
+                            android:layout_width="200dp"
+                            android:layout_height="100dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/iron2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_2"
+                            android:layout_width="200dp"
+                            android:layout_height="100dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/iron3"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_3"
+                            android:layout_width="80dp"
+                            android:layout_height="50dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/iron4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+                    <TextView
+                        android:id="@+id/tv_rdj"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center_horizontal"
+                        android:text="Robert Downey Jr."
+                        android:textColor="@color/white_60"
+                        android:textSize="24dp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/iv_1"
-                        android:layout_width="200dp"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_sample1"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                    <TextView
+                        android:id="@+id/tv_ironman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_horizontal"
+                        android:text="Avengers End Game\nIron man"
+                        android:textColor="@color/white_60"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/iv_2"
-                        android:layout_width="200dp"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_sample2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/iv_3"
-                        android:layout_width="80dp"
-                        android:layout_height="50dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_sample3"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_rdj" />
 
                 </androidx.constraintlayout.motion.widget.MotionLayout>
 
