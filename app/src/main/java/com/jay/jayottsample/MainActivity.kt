@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var anim = false
+    private var curation = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         binding.nestedSv.smoothScrollTo(0, 0)
 
         binding.nestedSv.viewTreeObserver.addOnScrollChangedListener {
-            if (binding.nestedSv.scrollY > 150f.dpToPx(this).toInt()) {
+            val scrollValue = binding.nestedSv.scrollY
+            if (scrollValue > 150f.dpToPx(this).toInt()) {
                 if (anim.not()) {
                     binding.motionLayoutChild.transitionToEnd()
                     binding.motionLayoutParent.transitionToEnd()
@@ -52,8 +54,18 @@ class MainActivity : AppCompatActivity() {
                     binding.motionLayoutBackground.transitionToStart()
                 }
             }
-        }
 
+            if (scrollValue > binding.nestedSv.height) {
+                if (curation.not()) {
+                    binding.motionLayoutCuration.setTransition(
+                        R.id.curation_anim_start1,
+                        R.id.curation_anim_end1
+                    )
+                    binding.motionLayoutCuration.transitionToEnd()
+                    curation = true
+                }
+            }
+        }
     }
 
     private fun initMotionLayoutListener() {
@@ -65,6 +77,29 @@ class MainActivity : AppCompatActivity() {
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) = Unit
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 anim = false
+            }
+
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) = Unit
+        })
+
+        binding.motionLayoutCuration.setTransitionListener(object :
+            MotionLayout.TransitionListener {
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+                curation = true
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) = Unit
+
+            override fun onTransitionCompleted(p0: MotionLayout?, id: Int) {
+                when (id) {
+                    R.id.curation_anim_end1 -> {
+                        binding.motionLayoutCuration.setTransition(
+                            R.id.curation_anim_start2,
+                            R.id.curation_anim_end2
+                        )
+                        binding.motionLayoutCuration.transitionToEnd()
+                    }
+                }
             }
 
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) = Unit
@@ -105,12 +140,14 @@ class MainActivity : AppCompatActivity() {
             val params = v.layoutParams as ViewGroup.MarginLayoutParams
             params.bottomMargin = insets.systemWindowInsetBottom
 
-            ctlToolbarContainer.layoutParams = (ctlToolbarContainer.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                setMargins(0, insets.systemWindowInsetTop, 0, 0)
-            }
-            collapsingToobarLayout.layoutParams = (collapsingToobarLayout.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                setMargins(0, 0, 0, 0)
-            }
+            ctlToolbarContainer.layoutParams =
+                (ctlToolbarContainer.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    setMargins(0, insets.systemWindowInsetTop, 0, 0)
+                }
+            collapsingToobarLayout.layoutParams =
+                (collapsingToobarLayout.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    setMargins(0, 0, 0, 0)
+                }
 
             insets.consumeSystemWindowInsets()
         }
@@ -130,7 +167,11 @@ class MainActivity : AppCompatActivity() {
 }
 
 fun Float.dpToPx(context: Context): Float {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, context.resources.displayMetrics)
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this,
+        context.resources.displayMetrics
+    )
 }
 
 fun Activity.statusBarTransparent() {
